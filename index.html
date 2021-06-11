@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>등거등락</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" type = "text/css" href = "main.css">
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1 id = "header">등거등락, 당신을 위한 등산 / 산책의 모든 것</h1>
+            </div>
+        </header>
+        <hr>
+        <main id = "mainsection">
+            <div id="map"></div>
+            <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a0da9f1c2f21041feb3bf7f46458cb04"></script>
+            <div id="container">
+                <h2 id = "quality">대기 정보</h2>
+                <img id="qualityFace">
+                <p id="AirQuality"></p>
+                <p id="Ozone"></p>
+                <p id="finedust"></p>
+                <p id="veryfinedust"></p>
+            </div>
+        </main>
+        <hr>
+        <div id = "mountaininfo">
+            <h1>가장 가까운 산 추천</h1>
+            <h3 id = "nearest"></h3>
+            <h1 id = "title1">서울시 등반 가능 산 목록</h1>
+            <div id="myBtnContainer">
+                <button class="btn active" onclick="filterSelection('all')"> 산 높이별 분류</button>
+                <button class="btn" onclick="filterSelection('low')"> 낮음(500m 이하)</button>
+                <button class="btn" onclick="filterSelection('mid')"> 보통(500~700m)</button>
+                <button class="btn" onclick="filterSelection('high')"> 높음(700m 이상)</button>
+            </div>
+            <div>
+                <a class = "filterDiv mid" href = "관악산.html"><li>관악산</li></a>
+                <a class = "filterDiv low" href = "남한산.html"><li>남한산</li></a>
+                <a class = "filterDiv high" href = "도봉산.html"><li>도봉산</li></a>
+                <a class = "filterDiv mid" href = "북한산.html"><li>북한산</li></a>
+                <a class = "filterDiv mid" href = "불암산.html"><li>불암산</li></a>
+                <a class = "filterDiv mid" href = "삼성산.html"><li>삼성산</li></a>
+                <a class = "filterDiv low" href = "수락산.html"><li>수락산</li></a>
+                <a class = "filterDiv high" href = "아차산.html"><li>아차산</li></a>
+                <a class = "filterDiv mid" href = "인왕산.html"><li>인왕산</li></a>
+                <a class = "filterDiv low" href = "청계산.html"><li>청계산</li></a>
+            </div>
+        </div>
+        
+        <div id = "walkplaces">
+            <h1>추천 산책로 모음</h1>
+            <div>
+                <a onclick="this.nextSibling.style.display = (this.nextSibling.style.display=='none')?'block':'none';"  href="javascript:void(0)">
+                    <li>둘레길 코스</li></a><div style = "DISPLAY:none"><p id="walkDulaeInfo"></p></div>    
+                <a onclick="this.nextSibling.style.display = (this.nextSibling.style.display=='none')?'block':'none';"  href="javascript:void(0)">
+                    <li>한양 도성길 코스</li></a><div style = "DISPLAY:none"><p id="walkDoseongInfo"></p></div>
+                <a onclick="this.nextSibling.style.display = (this.nextSibling.style.display=='none')?'block':'none';"  href="javascript:void(0)">
+                    <li>두드림길 근교 산자락길 코스</li></a><div style = "DISPLAY:none"><p id="walkGeungyosanInfo"></p></div>    
+                <a onclick="this.nextSibling.style.display = (this.nextSibling.style.display=='none')?'block':'none';"  href="javascript:void(0)">
+                    <li>두드림길 한강 코스</li></a><div style = "DISPLAY:none"><p id="walkHangangInfo"></p></div> 
+            </div>
+        </div>
+
+        <script src = "map.js"></script>
+        <hr>
+        <footer>
+            <p>Made by 김동윤, 김현진, 류세린, 최형민</p>
+            <p>인터넷 프로그래밍 5조</p>
+        </footer>
+    </body>
+</html>
+
+
+
+
+
+  

@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>남한산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 남한산!</h1>        
+        
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">남한산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id="info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>남한산은 사적 제 57호로 지정된 남한산성이 축조되어 있어서 남한산성으로 더 알려 알려져 있으나 남한산을 아는 사람은 많지 않다. 남한산성에는 남한산성을 보호하는 외성(外城)으로 동남쪽에 한봉성(漢峰城)과 봉암성(蜂岩城)이 있다.</p>
+                <p>남한산은 그 지형의 사면이 외부로부터의 공격을 방어하기에 좋은 조건을 갖추고 있다. 대개의 고원지는 해가 늦게 뜨고 일찍 져서 주단야장(晝短夜長)의 폐가 있지만 이 산성지역만은 주장야단(晝長夜短)의 독특한 지형을 이루기 때문에 옛 부터 일장산(日長山)·주장산(晝長山)이라고도 불리어 왔다.</p>
+                <p>남한산성은 두개의 산에 걸쳐있는 산성이다. 남한산성의 대표적인 봉우리는 수어장대가 있는 청량산(482.6m)이고, 북쪽으로 연주봉(467.6m)과 이어진다. 지형도상의 남한산성 최고봉은 동남쪽의 벌봉(515m)에서 한봉(418m)으로 이어지는 남한산성을 보호하는 외성(外城) 능선에 있는 남한산(522m)이다. 남한산 산행은 남한산보다 산성 성곽을 둘러보는 성곽답사를 주로 한다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>쌍바위 약수터, 남광 약수터, 일장천 약수터, 남한천 약수터, 유일천 약수터, 체육시설, 헬기장이 있으며, 휴식을 위한 다양한 암자가 존재한다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>남한산성</p>
+                <hr>
+            </div>
+            
+            <div id="sightseeing">
+                <h5>제 1코스</h5>
+                <p>산성종로-북문-서문-수어장대-영춘정-남문-산성종로 [3.8km, 1시간 20분]</p>
+                <h5>제 2코스</h5>
+                <p>산성종로-영월정-숭열전-수어장대-서문-국청사-산성종로 [2.9km, 1시간]</p>
+                <h5>제 3코스</h5>
+                <p>관리사무소-현절사-벌봉-장경사-망원사-지수당 [5.7km, 2시간]</p>
+                <h5>제 4코스</h5>
+                <p>관리사무소-동문-동장대터-북문-서문-수어장대-영춘정-남문-동문 [7.7km, 1시간 30분]</p>
+                <h5>제 5코스</h5>
+                <p>성남시-남문-수어장대-서문-거여동 [3.5km, 2시간 30분]</p>
+            </div>  
+
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"송파구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "남한산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+
+                    
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(!("서울특별시 송파구" in obj)){
+                        
+                        document.getElementById('landslide').innerText +="남한산 산사태 예측 정보는 존재하지 않는 상황입니다.";
+                        break;
+                    //콘솔창에 지역 확인
+                }
+                
+            }
+                });
+        </script>
+    </body>
+</html>

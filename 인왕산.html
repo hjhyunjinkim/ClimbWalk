@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>인왕산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 인왕산!</h1>        
+        
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">인왕산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id="info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>서울의 역사와 함께 하는 인왕산은 바위산이지만 모나지 않은 바위가 아름답고 정상에서 도심을 내려다 보는 경관이 뛰어나다. 북한산에서 볼 때 북악산을 중심으로 좌측에 낙산, 우측에 인왕산이 있어 좌청룡 우백호를 이룬다. 특이한 형태의 암석과 암벽이 웅대하다.산세는 정상을 중심으로 남북으로 길 게 뻗어 내렸는데 사직터널에서 자하문 까지 능선을 따라 서울 외곽을 쌓았던 성곽이 현재 남아 있다.</p>
+                <p>가족끼리 가족산행을 즐길 수 있는 산으로 종주하는데는 3시간정도 걸린다. 사직터널에 시작하여 성곽터와 정상을 지나 부암동으로 하산 코스가 제일 좋다. 이 길은 청와대 앞길로 이어져 있어서 팔판로, 효자로, 경복궁까지 산책할 수 있다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>만수천 약수터, 인왕천 약수터, 버드나무 약수터, 석굴암 약수터 등이 있습니다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>전바위, 범바위, 치마바위, 기차바위, 모자바위, 매바위</p>
+                <hr>
+            </div>
+            <div id="sightseeing">
+                <h5>제 1코스</h5>
+                <p>사직공원 입구-약수터-정상- 부암동(자하문) [2시간]</p>
+                <h5>제 2코스</h5>
+                <p>사직터널-성터-정상-부암동(자하문) [2시간]</p>
+                <h5>제 3코스</h5>
+                <p>독립문역- 인왕사 일주문- 국사당- 선 바위- 철조망문- 능선길- 범바위- 인왕천 갈림 길- 정상-3 05능선길- 기차바위- 인왕아파트 갈림길- 홍심약수 갈림길- 부암동사무소 쪽 갈림길-하림각 [2시간 30분]</p>
+                <h5>제 4코스</h5>
+                <p>사직공원- 북악스카이웨이- 국사당- 달팽이바위- 인왕산약수- 해골바위- 정상 [2시간]</p>
+                <h5>제 5코스</h5>
+                <p>경복궁역- 자하문길- 영추문- 청와대 앞길- 청운중학- 최규식 경무관 동상- 자하문- 성곽길- 정상 [2시간]</p>
+            </div>
+
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"서대문구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "인왕산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+                    
+
+                    
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(key=='"서울특별시 서대문구"'){
+                    document.getElementById('landslide').innerText +="인왕산"+ 산사태예보 ;
+                    //콘솔창에 지역 확인
+                }
+            }
+                });
+        </script>
+    </body>
+</html>

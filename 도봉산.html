@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>도봉산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 도봉산!</h1>        
+        
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">도봉산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id = "info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>도봉산은 서울 근교의 산으로 북한산과 함께 북한산 국립공원에 포함되어 있으며 교통이 편리하고 산세가 아름답다. 주능선상에는 최고봉인 자운봉을 비롯 만장봉, 선인봉, 주봉 등의 암봉과 서쪽으로 다섯 개의 암봉이 나란히 줄지어 있는 오봉이 있다. 선인봉, 만장봉, 주봉, 우이암은 각기 거대한 암벽들이다.</p>
+                <p>도봉산은 우람한 기암괴석과 뾰족히 솟은 암봉들이 장관을 이루며, 사방으로 뻗은 계곡을 따라 녹음이 우거져 명소를 만들고 있다. 사계절 모두 즐겨 찾는 산이지만 가을이면 단풍의 물결이 어느 산 못지 않다. 도봉산의 3대 계곡은 문사동계곡, 망월사계곡(원도봉계곡), 보문사계곡(무수골) 이다. 이 계곡들이 바로 산행기점과 연결되고 있다. 도봉산은 등산코스가 다양하다. 그 중에서 도봉동 도봉산역, 망월사역, 우이동코스가 대표적이다. 포대능선은 동에서 서쪽으로 일방코스이다. 따라서 다락능선이나 포대능선 방행에서 정상방향으로 코스를 잡아야 한다.</p>
+                <p>우람한 기암괴석과 암봉, 아기자기한 암릉 등이 있는 도봉산은 경관이 수려할 뿐아니라 전철 도봉산역에서부터 산행을 시작할 수 있어 접근성도 뛰어나 사계절 두루 인기가 있다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>도봉 서원 약수터, 덕제샘 약수터, 산장샘 약수터, 민초샘 약수터 및 대피소가 있습니다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>만장봉, 선인봉, 원도봉계곡, 용어천계곡, 송추계곡, 회룡사(回龍寺), 망월사(望月寺), 천축사(天竺寺), 보문사(普門寺)</p>
+                <hr>
+            </div>
+            
+            <div id ="sightseeing">
+                <h5>제 1코스</h5>
+                <p>도봉매표소-다락능선-포대능선-신선대-도봉산장-도봉매표소</p>
+                <h5>제 2코스</h5>
+                <p>도봉매표소-다락능선-포대능선-신선대-주릉-보문능선-도봉매표소</p>
+                <h5>제 3코스</h5>
+                <p>도봉매표소 -도봉서원- 갈림길- 도봉산장- 천축사- 마당바위- 정상(자운봉)- 우이암- 보문산장- 원통사- 우이동 유원지</p>
+                <h5>제 4코스</h5>
+                <p>회룡골 매표소- (20분)- 회룡사 -(1시간 30분)- 포대터 -(5분)-649봉 -(1시간)- 자운봉 -(1시간)- 오봉사거리 -(30분)-우이암 -(1시간 30분)- 우이동 그린파크</p>
+                <h5>제 5코스</h5>
+                <p>망월사역 - 매표소 - 원효사- 망월사- 716봉- 자운봉- 주봉-우이암- 원통사- 보문산장- 삼거리</p>
+
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"도봉구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "도봉산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+
+            
+                    
+
+                    
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(key=='"서울특별시 도봉구"'){
+                    document.getElementById('landslide').innerText +="도봉산"+ 산사태예보 ;
+                    //콘솔창에 지역 확인
+                }
+            }
+                });
+        </script>
+    </body>
+</html>

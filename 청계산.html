@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>청계산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 청계산!</h1>        
+        
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">청계산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id="info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>서울 주변에서 숲과 계곡, 절,공원 등을 한꺼번에 만날 수 있는 청계산, 청룡이 승천했던 곳이라 과거에는 청룡산으로도 불렸던 곳. 청계산은 서울시 서초구 양재동과 경기도 과천, 의왕, 성남시에 걸치고 있다. 남북으로 흐르는 능선을 중심으로 펼쳐진 산세가 수려하며 숲 또한 울창하고 계곡이 깊고 아늑하다.</p>
+                <p>과천의 서울대공원에서 바라보면 대공원 뒤에 병풍처럼 둘러있으며 바위로 되어 있는 정상인 망경대가 우뚝 솟아 보인다. 정상에 서면 북서쪽으로 펼쳐진 계곡 아래 과천시와 동물원, 식물원이 있는 서울대공원, 각종 놀이기구가 있는 서울랜드, 국립현대미술관, 과천 경마장이 한눈에 내려다 보인다.</p>
+                <p>토요일이나 일요일이면 가볍게 산을 오르려는 등산객들로 붐빈다. 정상인 망경대는 이전에는 출입이 통제되었으나 지금은 해재되어 등산이 가능하다. 어느 코스로 오르던 정상까지는 2시간-2시간30분이면 오를 수 있다. 북한산이나 관악산처럼 등산로에 바위가 많이 솟아 있지 않고 황토흙이 덮여 있어 쉽고 편안하게 오를 수 있다. 산행시간이 짧고, 코스가 길지 않으며 산행로가 완만하여 가족 단위의 산행이 쉬운 산중의 하나이다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>생명수 약수터, 청계골 약수터, 윈터골 쉼터, 솔밭 쉼터, 산토끼 옹달샘 및 체육 시설이 있습니다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>청계사, 서울대공원, 서울랜드, 백운호수</p>
+                <hr>
+            </div>
+            
+            <div id="sightseeing">
+                <h5>제 1코스</h5>
+                <p>원터골-천개사-길마재-돌문바위-매바위-매봉-망경봉-망경대-헬기장-청계계곡-옛골 [5시간]</p>
+                <h5>제 2코스</h5>
+                <p>옛골-돌문 바위-매봉-매바위-옥녀봉-어린이대공원 [5시간]</p>
+                <h5>제 3코스</h5>
+                <p>양재화물터미널-옥녀봉-석기봉-매봉-인덕원 [5시간30분]</p>
+                <h5>제 4코스</h5>
+                <p>서울대대공원역-565봉-매봉-매바위-매봉-혈읍재-망경대-석기봉-마왕굴-대공원역 [5시간 30분]</p>
+                <h5>제 5코스</h5>
+                <p>청계사 입구-절고개 능선-헬기장-석기봉-망경대-석기봉-청계사 갈림길-용봉(작은 매봉)-과천역 [5시간]</p>
+                <h5>제 6코스</h5>
+                <p>인덕원역-이미마을-과천매봉-절고개-이수봉-석기봉-망경봉-혈읍재-매봉-매바위-돌문바위-옥녀봉-대공원-선바위역 [5시간 30분]</p>
+
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"서초구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "청계산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+                    
+
+                    
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(!("서울특별시 서초구" in obj)){
+                        
+                        document.getElementById('landslide').innerText +="청계산 산사태 예측 정보는 존재하지 않는 상황입니다.";
+                        break;
+                    //콘솔창에 지역 확인
+                }
+                
+            }
+                });
+        </script>
+    </body>
+</html>

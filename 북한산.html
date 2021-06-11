@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>북한산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 북한산!</h1>        
+        
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">북한산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id="info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>북한산국립공원은 15번째 국립공원으로 1983년 지정되었으며, 그 면적은 서울특별시와 경기도에 걸쳐 약 78.5㎢, 우이령을 중심으로 남쪽의 북한산 지역과 북쪽의 도봉산 지역으로 구분된다.</p>
+                <p>북한산국립공원은 세계적으로 드문 도심 속의 자연공원으로 공원전체가 도시지역으로 둘러싸여 있으며 수도권 이천만 주민들의 자연휴식처로 크게 애용되고 있다. 연평균 탐방객이 500만에 이르고 있어 "단위면적당 가장 많은 탐방객이 찾는 국립공원"으로 기네스북에 기록되어 있다.</p>
+                <p>북한산의 주봉인 백운봉 정상에 서면 맞은편의 깍아 지른 듯 인수봉이 서 있다.국망봉, 노적봉 등 높은 봉우리들이 모두 발밑에 있음은 물론 도봉, 북악, 남산, 남한산, 관악산 등 멀고 가까운 산들이 모두 눈앞에 들어온다. 시계가 넓은 날에는 서쪽으로 강화도, 영종도 등 서해상의 섬들도 볼 수 있다.</p>
+                <p>북한산 진흥왕 순수비는 신라 진흥왕(재위 540~576년)이 세운 순수척경비(巡狩拓境碑) 가운데 하나로, 한강 유역을 신라 영토로 편입한 뒤 진흥왕이 이 지역을 방문한 것을 기념하기 위해 세운 것이다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>범골 약수터, 냉골 약수터,청수 약수터, 통령 약수터, 및 북한산 자락 캠핌장이 있습니다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>북한산성,도선사, 태고사, 화계사, 문수사, 진관사, 진흥왕 순수비</p>
+                <hr>
+            </div>
+            
+            <div id="sightseeing">
+                <h5>백운대 코스</h5>
+                <p>정릉탐방지원센터-대동문-용암문-위문-백운대-백운대피소-하루재-도선사</p>
+                <h5>비봉능선 코스</h5>
+                <p>불광역-용화지킴터-족두리봉-향로봉-비봉-문수봉-청수동암문-삼천사계곡</p>
+                <h5>의상능선 코스</h5>
+                <p>산성입구-북한산성탐방지원센터-용암사입구-의상봉 -가사당암문-용출봉-용혈봉-증취봉-부암동암문-나월봉-나한봉-청수동암문-문수봉-대남문-구기계곡-구기매표소</p>
+                <h5>주능선 코스</h5>
+                <p>구기탐방지원센터-(구기계곡 경유 1시간20분)-대남문-주능선-백운대-하루재-도선사주차장</p>
+
+
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"은평구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "북한산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+                    
+
+                    
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(key=='"서울특별시 은평구"'){
+                    document.getElementById('landslide').innerText +="북한산"+ 산사태예보 ;
+                    //콘솔창에 지역 확인
+                }
+            }
+                });
+        </script>
+    </body>
+</html>

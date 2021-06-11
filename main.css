@@ -1,0 +1,114 @@
+#header {
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    color: blue;
+    font-size:  45px;
+}
+h1 {
+    font-family: 'Jua', sans-serif;
+}
+body {
+    background-color: lightblue;
+    width: 1300px;
+    margin: auto;
+    font-family: 'Jua', sans-serif;
+}
+#mainsection {
+    width: 1150px;
+    margin: auto;
+}
+hr {
+    height: 3px;
+    width: 100%;
+    color: black;
+    background-color: black;
+    border-width: 0;
+}
+#quality{
+    font-size: 30px;
+}
+footer {
+    text-align: center;
+    color: gray;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+}
+#map {
+    width: 800px;
+    height: 500px;
+    float: left;
+}
+#container {
+    border: solid blue 2px;
+    width: 320px;
+    height: 490px;
+    background-image: url("./images/weather.png");
+    float: right;
+    text-align: center;
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+}
+div li {
+    font-family: 'Jua', sans-serif;
+    list-style-type: none;
+    font-size: 19px;
+    padding: 10px 10px;
+    display: inline;
+}
+#qualityFace {
+    height: 25%;
+    width: 40%;
+}
+#walkDulaeInfo {
+    font-family: 'Jua', sans-serif;
+}
+#walkDoseongInfo {
+    font-family: 'Jua', sans-serif;
+}
+#walkGeungyosanInfo{
+    font-family: 'Jua', sans-serif;
+}
+#walkHangangInfo{
+    font-family: 'Jua', sans-serif;
+}
+div a li {
+    padding: 4px 10px 4px 10px; 
+    margin-right: 15px;
+    border:2px solid green;
+    background-color: lightgreen;
+    color: black;
+}
+div a {
+    text-decoration: none;
+}
+#mountaininfo{
+    text-align:center;
+}
+#walkplaces {
+    text-align:center;
+}
+
+.filterDiv {
+    color: #ffffff;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 2px;
+    display: none; 
+}
+
+.show {
+    display: inline;
+}
+
+button {
+    padding: 4px 10px 4px 10px; 
+    margin-right: 15px;
+    border:2px solid green;
+    background-color: lightgreen;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    color: blue;
+    font-size:  20px;
+    cursor: pointer;
+}

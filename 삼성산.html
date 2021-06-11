@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>삼성산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 삼성산!</h1>        
+        
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">삼성산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id="info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>서울대학교에서 남쪽으로 4km, 안양역에서 서북으로 5km 떨어져 관악산 서쪽으로 이어지는 481m의 삼성산은 서울시 관악구, 금천구와 안양시를 경계로한다.</p>
+                <p>삼성산은 관악산 주능선에서 서쪽으로 뻗어내린 학바위능선을 타고 무너미고개로 내려 않다가 다시 솟구쳐 오른 산으로, 삼성산 아래 국기봉과 삼막사로 많이 알려져 있다. 관악산 유원지로 들어서면 왼쪽이 관악산, 오른쪽 능선이 삼성산 능선이다.</p>
+                <p>원효대사가 의상, 윤필과 함께 삼막사를 짓고, 수도하였다고 하여 삼성산이라는 이름이 붙여졌으며 다양한 절과 천주교 성지가 있다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>성지 약수터, 남서울 약수터, 삼성 약수터가 있습니다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>삼막사, 호압사, 반월암, 상불암, 안양사, 망월암</p>
+                <hr>
+            </div>
+            <div id="sightseeing">
+                <h5>제 1코스</h5>
+                <p>관악산 유원지-호수공원-제2양영장-국기봉(446봉) - 삼성산 정상 [3시간]</p>
+                <h5>제 2코스</h5>
+                <p>호압사- 장군봉, 제1야영장 - 국기봉(446봉) - 삼성산 정상 - 삼막사 - 염불암 - 안양유원지 [4시간]</p>
+                <h5>제 3코스</h5>
+                <p>안양유원지-염불암-삼막사-칠성각-상불암-유원지-안양 [3시간 30분]</p>
+                <h5>제 4코스</h5>
+                <p>안양유원지 입구-삼막사-정상-상불암-관악산 유원지 [3시간]</p>
+
+
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"관악구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "삼성산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+                    
+
+                    
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(key=='"경기도 안양시 동안구"'){
+                    document.getElementById('landslide').innerText +="삼성산"+ 산사태예보 ;
+                    //콘솔창에 지역 확인
+                }
+            }
+                });
+        </script>
+    </body>
+</html>

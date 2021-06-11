@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>관악산</title>
+        <link rel = "stylesheet" type = "text/css" href = "minor.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id = "locationtitle">여기는 관악산!</h1>
+        <div>
+            <div id = "container">
+                <h1>노을 볼 확률</h1>
+                <div id ="sunset"></div>
+                <p id="rainfall"></p>
+                <img id="rainfallpic">
+                <p id="landslide"></p>
+                <p id="trailinfo"></p>
+                <p id="firealert">관악산의 산불 위험 지수는 평균보다 현저히 낮으므로 안전합니다!</p>
+            </div>
+            <div id = "info">
+                <hr>
+                <h2>산 정보</h2>
+                <p>관악산은 서울의 조산이다. 내룡(來龍)은 백두대간에서 이어진 태백산·소백산·새재· 희양산을 거쳐 속리산이 중조(中祖)가 되어 한남금북정맥을 이루고, 북으로 치달아 칠현산·광교산·청계산을 이어, 관악·금지산·남태령에서 한강을 경계선으로 강남의 서쪽 벌판에 우뚝 솟아 강북의 삼각산과 마주하고 있다. 관악산은 청계산·삼성산과 함께 옛 금천의 진산(鎭山)인 금지산경(衿芝山經)을 이루는데, 이 산경의 최고봉이기도 하다., 산봉우리의 모양이 불과 같아 풍수적으로 화산이 된다.</p>
+                <p>빼어난 수십개의 봉우리와 바위들이 많고 오래된 나무 와 온갖 풀이 바위와 어우러져 철따라 변하는 모습이 마치 금강산과 같다하여 소금강 또는 서쪽에 있는 금강산이라하여 서금강이라고 한다. 시민의 주요한 휴식처로 숲과 맑은 공기, 확 트인 조망을 찾는 사람들의 발길이 끊이지 않는다.</p>
+                <p>곳곳에 드러난 암봉들이 깊은 골짜기와 어울려 험준한 산세를 이루고 있으나 산의 규모가 그다지 크지 않고 도심에서 가까워 가족동반 당일산행 대상지로서 많은 이들이 찾는다.</p>
+                <p>봄에 관악산 입구 쪽에 벚꽃이 만발하고, 철쭉이 필 때 철쭉제가 열리기도 한다.관악산 서쪽에는 무너미고개를 사이에 하고 삼성산이 솟아있는데 남쪽 계곡에는 안양유원지가 조성되어 있다.</p>
+                <hr>
+                <h2>편의 시설</h2>
+                <p>제1광장과 제2광장, 야영장 4개소, 정자 33개소가 설치되어 있고, 야외탁자 117개와 벤치 433개가 있다. 운동시설로는 운동장 1개소와 간이운동장 38개소가 있으며, 성인 운동기구 13종 153개가 설치되어 있으며 입구에 주차장 2개소가 있다.</p>
+                <hr>
+                <h2>볼거리</h2>
+                <p>연주암, 연주대, 낙성대공원, 삼막사, 호수공원</p>
+                <hr>
+            </div>
+            
+            <div id = "sightseeing">
+                <h5>관악산공원 코스</h5>
+                <p>관악산공원 입구(서울대 정문 옆) -(20분)- 제1광장 -(40분)- 제4야영장 갈림길 -(1시간)- 연주암 -(10분)-정상(연주대) -(15분)- 연주암(15분)- 연주샘 -(1시간)- 시흥향교(과천유원지) -(15분)- 지하철 제2종합청사역 (4시간)</p>
+                <h5>서울대-연주대-사당동코스</h5>
+                <p>신림동 관악산 입구 -(20분)-제1광장 -(40분)- 제4야영장 갈림길 -(1시간)- 연주암 (15분) -정상(연주대) -(2시간10분)-사당동 (4시간 30분)</p>
+                <h5>낙성대 방면 코스</h5>
+                <p>낙성대 -(30분) - 보성사 -(2시간) - 연주대(1시간)</p>
+                <h5>사당역 방면 코스</h5>
+                <p>사당역- 연주대- 관악산공원입구(4시간)</p>
+                <h5>과천방면 코스</h5>
+                <p>과천역 - 과천향교 -(1시간 20분) - 연주암 -(25분) - 정상(20분) - 연주암(50분) -제4야영장(30분) - 제1광장(20분) - 관악산 입구 (4시간 30분)</p>
+                <h5>정부청사역</h5>
+                <p>정부청사역-육봉능선-관악산공원 입구 (4시간)</p>
+                <h5>인덕원 코스</h5>
+                <p>인덕원역 -육봉능선-연주대-관악산공원 입구</p>
+                <h5>관악역 코스</h5>
+                <p>안양유원지-소공원-팔봉능선 갈림길-불성사-연주암-제4 야영장 갈림길-제2광장-제1광장-(서울대)관악산 입구</p></div>
+        <script>
+            
+            
+            const url_rainfall = "http://openAPI.seoul.go.kr:8088/6c4a6d756673657233346142775674/json/ListRainfallService/1/100/";
+                fetch(url_rainfall, {
+                    headers : { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                        }
+                })
+                .then(res => res.json())
+                .then(myJson => {
+                    
+                    //document.getElementById('rainfall').innerText = JSON.stringify(myJson);
+                    rainfall_length = JSON.stringify(myJson["ListRainfallService"]["row"]).length
+
+                    
+                    for (var i = 0; i < rainfall_length; i++){
+                        let 구명 = JSON.stringify(myJson["ListRainfallService"]["row"][i].GU_NAME);
+                        if (구명 == '"관악구"'){
+                            flag = i
+                            break;
+                        } 
+                        else{
+                            continue;
+                        }
+                    
+                    }
+
+                    //강우량
+                    let 강우량 = JSON.stringify(myJson["ListRainfallService"]["row"][flag].RAINFALL10); 
+
+                    강우량 = parseInt(강우량);
+
+                    let 노을확률 = ""
+                    if(강우량 = "0"){
+                        노을확률 = "매우 높아요";
+                        노을사진 = "./images/thumbsup.png"
+                    }else {
+                        노을확률 = "아마 보기 어려울 거에요";
+                        노을사진 = "./images/thumbsdown.png"
+                    }
+
+                    document.getElementById('rainfall').innerText += "\n"+ "관악산 정상 등반 시 노을을 관찰할 확률은 " + 노을확률 ;
+                    document.getElementById('rainfallpic').src = 노을사진;
+                });
+                fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('http://apis.data.go.kr/1400000/predictionInfoService/predictionInfoList?ServiceKey=pgSFXq7JRCZhMaWViaF%2FyAF0ICZWKle3przI5MSYiq%2FP89Qn8A5cHZn1RbTB56IwbIh3eTLkyuBQy%2Bv9A9PewA%3D%3D&_type=json&numOfRows=1000')}`)
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error('Network response was not ok.')
+                })
+                .then(myJson => {
+                //document.getElementById('landslide').innerText = JSON.stringify(myJson);
+                //console.log(JSON.stringify(myJson['response']['body']['items']['item']));
+                console.log(JSON.stringify(myJson['response']['body']['items']['item'][0]));
+
+                const landslide_length = JSON.stringify(myJson['response']['body']['items']['item'].length);
+
+                var obj = [];
+                for (var i = 0; i < landslide_length; i++){
+                    const name = JSON.stringify(myJson['response']['body']['items']['item'][i].sgg);
+                    console.log(JSON.stringify(myJson['response']['body']['items']['item'][i].sgg));
+
+                    obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] = (obj[JSON.stringify(myJson['response']['body']['items']['item'][i].sgg)] || 0) + 1;
+                }    
+                    console.log(obj)
+                
+                
+                    for (var key in obj){
+                    let 산사태예보 = ""
+                    if(obj[key]> 20 ){
+                        산사태예보  = "의 산사태 가능성이 높으므로, 등산 하지 마세요!";
+                    }else if (obj[key]> 15){
+                        산사태예보  = "의 산사태 가능성이 보통이므로, 등산하는 걸 자제하세요!";
+                    }else if (obj[key]> 10){
+                        산사태예보  = "의 산사태 가능성이 낮으므로, 안전한 편이에요!";
+                    }else if (obj[key]> 5){
+                        산사태예보  = "의 산사태 가능성이 매우 낮으므로, 안전해요:)";
+                    }else {
+                        산사태예보  = "의 산사태 예측 정보 시스템이 점검 중이어서 정보 제공이 어렵습니다.";
+                    }
+                    
+                    if(key=='"경기도 안양시 동안구"'){
+                    document.getElementById('landslide').innerText +="관악산"+ 산사태예보 ;
+                    //콘솔창에 지역 확인
+                }
+            }
+                });
+                
+            
+        </script>
+        
+        
+
+    </body>
+</html>
